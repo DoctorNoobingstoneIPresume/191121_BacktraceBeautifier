@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e -o pipefail
+
+function Build ()
+{
+	rm -f "Main" "Main.exe" *".o" *".obj"
+	dmd \
+		-unittest \
+		-g \
+		"$@" \
+		"Main.d" \
+		-of"Main"
+}
+
+echo Building...
+Build "$@" 2>&1 | tee "_build"
+echo
